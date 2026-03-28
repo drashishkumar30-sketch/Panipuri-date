@@ -1,141 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Golgappa Date 💛</title>
-  <style>
-    body {
-      background: linear-gradient(135deg, #ffe0b2, #fff3e0);
-      font-family: 'Segoe UI', sans-serif;
-      text-align: center;
-      padding: 40px;
-    }
+<meta charset="UTF-8">
+<title>Golgappa Date 💛</title>
 
-    h1 {
-      color: #5d4037;
-    }
+<style>
+body {
+  background: linear-gradient(135deg, #ffe0b2, #fff3e0);
+  font-family: 'Segoe UI', sans-serif;
+  text-align: center;
+  padding: 40px;
+}
 
-    .plate {
-      margin-top: 40px;
-      position: relative;
-      display: inline-block;
-    }
+h1 {
+  color: #5d4037;
+}
 
-    .golgappa {
-      width: 150px;
-      height: 150px;
-      background: radial-gradient(circle, #d4a373, #8d5524);
-      border-radius: 50%;
-      position: relative;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
+.golgappa {
+  width: 160px;
+  height: 160px;
+  margin: 40px auto;
+  background: radial-gradient(circle at 30% 30%, #f4c27a, #8b5a2b);
+  border-radius: 50%;
+  position: relative;
+  cursor: pointer;
+  box-shadow: inset -10px -10px 20px rgba(0,0,0,0.3),
+              inset 10px 10px 20px rgba(255,255,255,0.2),
+              0 10px 25px rgba(0,0,0,0.2);
+  overflow: hidden;
+}
 
-    .golgappa:hover {
-      transform: scale(1.05);
-    }
+/* hole on top */
+.hole {
+  width: 35px;
+  height: 25px;
+  background: #3e2723;
+  border-radius: 50%;
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
 
-    .stuffing {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 40px;
-      opacity: 0;
-      transition: opacity 0.5s;
-    }
+/* stuffing */
+.stuffing {
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  text-align: center;
+  font-size: 35px;
+  opacity: 0;
+  transition: 0.5s;
+}
 
-    .water {
-      position: absolute;
-      bottom: -20px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 40px;
-      opacity: 0;
-      transition: opacity 0.5s;
-    }
+/* water */
+.water {
+  position: absolute;
+  top: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 60px;
+  background: linear-gradient(#4fc3f7, #0288d1);
+  border-radius: 50%;
+  opacity: 0;
+  transition: 0.5s;
+}
 
-    .show {
-      opacity: 1;
-    }
+/* filled water inside */
+.water-fill {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 0%;
+  background: rgba(0, 150, 200, 0.5);
+  transition: height 0.7s ease;
+}
 
-    .message {
-      margin-top: 30px;
-      font-size: 18px;
-      color: #4e342e;
-      max-width: 400px;
-      margin-left: auto;
-      margin-right: auto;
-      line-height: 1.5;
-    }
+.show {
+  opacity: 1;
+}
 
-    .final {
-      margin-top: 20px;
-      font-size: 20px;
-      color: #bf360c;
-      opacity: 0;
-      transition: opacity 0.5s;
-    }
+.message {
+  margin-top: 20px;
+  font-size: 18px;
+  color: #4e342e;
+}
 
-    button {
-      margin-top: 20px;
-      padding: 10px 20px;
-      border: none;
-      background: #ff7043;
-      color: white;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 16px;
-    }
-
-    button:hover {
-      background: #f4511e;
-    }
-  </style>
+.final {
+  margin-top: 20px;
+  font-size: 20px;
+  color: #bf360c;
+  opacity: 0;
+  transition: 0.5s;
+}
+</style>
 </head>
+
 <body>
 
-  <h1>Our Virtual Golgappa Date 💛</h1>
-  <p>Tap the golgappa and let me serve you...</p>
+<h1>Our Virtual Golgappa Date 💛</h1>
+<p>Tap the golgappa and let me serve you...</p>
 
-  <div class="plate">
-    <div class="golgappa" onclick="serveGolgappa()">
-      <div id="stuffing" class="stuffing">🥔</div>
-      <div id="water" class="water">💧</div>
-    </div>
-  </div>
+<div class="golgappa" onclick="serve()">
+  <div class="hole"></div>
+  <div class="stuffing" id="stuffing">🥔</div>
+  <div class="water" id="drop"></div>
+  <div class="water-fill" id="fill"></div>
+</div>
 
-  <div class="message" id="msg">
-    Step 1: Tap to add aloo stuffing 😋
-  </div>
+<div class="message" id="msg">
+  Step 1: Add stuffing 😋
+</div>
 
-  <div class="final" id="finalMsg">
-    If only distance wasn’t there… I’d be standing right next to you, feeding you this ❤️
-  </div>
+<div class="final" id="final">
+  Next time… no screen. Just you, me, and real golgappas ❤️
+</div>
 
-  <script>
-    let step = 0;
+<script>
+let step = 0;
 
-    function serveGolgappa() {
-      step++;
+function serve() {
+  step++;
 
-      if (step === 1) {
-        document.getElementById("stuffing").classList.add("show");
-        document.getElementById("msg").innerText = "Step 2: Now tap again for khatta pani 💧";
-      }
+  if(step === 1){
+    document.getElementById("stuffing").classList.add("show");
+    document.getElementById("msg").innerText = "Step 2: Pour khatta pani 💧";
+  }
 
-      else if (step === 2) {
-        document.getElementById("water").classList.add("show");
-        document.getElementById("msg").innerText = "Step 3: Ready… tap to eat it 😏";
-      }
+  else if(step === 2){
+    document.getElementById("drop").classList.add("show");
 
-      else if (step === 3) {
-        document.getElementById("finalMsg").style.opacity = "1";
-        document.getElementById("msg").innerText = "Done. But the real one will taste better… with me.";
-      }
-    }
-  </script>
+    setTimeout(() => {
+      document.getElementById("fill").style.height = "40%";
+    }, 300);
+
+    document.getElementById("msg").innerText = "Step 3: Ready to eat? 😏";
+  }
+
+  else if(step === 3){
+    document.getElementById("final").style.opacity = "1";
+    document.getElementById("msg").innerText = "I’d feed you this myself if you were here.";
+  }
+}
+</script>
 
 </body>
 </html>
