@@ -11,49 +11,60 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #ffe0b2, #fff3e0);
-  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #fbc2eb, #fcd5ce);
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-.container {
-  text-align: center;
-  max-width: 350px;
+.card {
+  background: #f2f2f2;
   width: 90%;
+  max-width: 380px;
+  border-radius: 30px;
+  padding: 30px 20px;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
 }
 
 h1 {
-  color: #5d4037;
-  font-size: 26px;
+  font-size: 28px;
   margin-bottom: 10px;
 }
 
 .message {
-  font-size: 20px;
-  color: #4e342e;
-  min-height: 70px;
-  line-height: 1.5;
-  margin-bottom: 15px;
+  font-size: 22px;
+  font-weight: 600;
+  min-height: 90px;
+  margin-top: 20px;
+  line-height: 1.4;
 }
 
 img {
   width: 240px;
-  border-radius: 14px;
-  margin: 15px 0;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  border-radius: 20px;
+  margin: 20px 0;
+}
+
+.buttons {
+  margin-top: 20px;
 }
 
 button {
-  padding: 12px 20px;
+  padding: 14px 24px;
+  margin: 10px;
+  border-radius: 30px;
   border: none;
-  background: #ff7043;
-  color: white;
-  border-radius: 10px;
-  font-size: 16px;
+  font-size: 18px;
   cursor: pointer;
 }
 
-button:hover {
-  background: #f4511e;
+.primary {
+  background: linear-gradient(135deg, #ff3d77, #ff6a88);
+  color: white;
+}
+
+.secondary {
+  background: #ddd;
+  color: #333;
 }
 
 .typing::after {
@@ -69,15 +80,15 @@ button:hover {
 
 <body>
 
-<div class="container">
+<div class="card">
 
-<h1>Virtual Golgappa Date 💛</h1>
+<h1>For Yukti 💛</h1>
 
 <div class="message typing" id="msg"></div>
 
 <img id="image" src="plate.PNG">
 
-<div id="buttons"></div>
+<div class="buttons" id="buttons"></div>
 
 </div>
 
@@ -108,43 +119,43 @@ function next(choice="") {
   step++;
 
   if(step === 1){
-    typeText("Madam… you wanted to eat golgappa… so here I have got you 😌");
+    typeText("Madam… you wanted golgappa 😌");
     img.src = "plate.PNG";
-    btns.innerHTML = `<button onclick="next()">Take it</button>`;
+    btns.innerHTML = `<button class="primary" onclick="next()">Take it</button>`;
   }
 
   else if(step === 2){
-    typeText("First… your golgappa 😏");
+    typeText("So I brought it for you… personally 😏");
     img.src = "full.PNG";
-    btns.innerHTML = `<button onclick="next()">Hmm okay</button>`;
+    btns.innerHTML = `<button class="primary" onclick="next()">Hmm okay</button>`;
   }
 
   else if(step === 3){
-    typeText("Should I crack it for you… or you’ll do it yourself? 😌");
+    typeText("Should I crack it… or you’ll do it? 😌");
     btns.innerHTML = `
-      <button onclick="next()">You do it</button>
-      <button onclick="next()">You do it for me</button>
+      <button class="primary" onclick="next()">You do it</button>
+      <button class="secondary" onclick="next()">I’ll do it</button>
     `;
   }
 
   else if(step === 4){
     typeText("Okay… gently cracking it for you 😏");
     img.src = "empty.PNG";
-    btns.innerHTML = `<button onclick="next()">Next</button>`;
+    btns.innerHTML = `<button class="primary" onclick="next()">Next</button>`;
   }
 
   else if(step === 5){
-    typeText("Adding stuffing… don’t get impatient 😋");
+    typeText("Adding stuffing… don’t rush 😋");
     img.src = "stuffing.PNG";
-    btns.innerHTML = `<button onclick="next()">Next</button>`;
+    btns.innerHTML = `<button class="primary" onclick="next()">Next</button>`;
   }
 
   else if(step === 6){
-    typeText("Now tell me… what should I add? 😏");
+    typeText("Tell me… what should I add? 😏");
     btns.innerHTML = `
-      <button onclick="next('khatta')">Khatta 💧</button>
-      <button onclick="next('meetha')">Meetha 🍯</button>
-      <button onclick="next('dahi')">Dahi 🥛</button>
+      <button class="primary" onclick="next('khatta')">Khatta 💧</button>
+      <button class="secondary" onclick="next('meetha')">Meetha 🍯</button>
+      <button class="secondary" onclick="next('dahi')">Dahi 🥛</button>
     `;
   }
 
@@ -153,30 +164,30 @@ function next(choice="") {
     else if(choice === "meetha") img.src = "meetha.PNG";
     else img.src = "dahi.PNG";
 
-    typeText("Perfect… made exactly how you like it 😌");
-    btns.innerHTML = `<button onclick="next()">Next</button>`;
+    typeText("Perfect… just how you like it 😌");
+    btns.innerHTML = `<button class="primary" onclick="next()">Next</button>`;
   }
 
   else if(step === 8){
     typeText("Now… open your mouth 😏");
-    btns.innerHTML = `<button onclick="next()">🙂</button>`;
+    btns.innerHTML = `<button class="primary" onclick="next()">🙂</button>`;
   }
 
   else if(step === 9){
-    typeText("Here… careful… it might burst in your mouth 💛");
-    img.src = "final.PNG";   // ✅ FINAL ONLY
-    btns.innerHTML = `<button onclick="next()">Yum</button>`;
+    typeText("Careful… it might burst 💛");
+    img.src = "final.PNG";
+    btns.innerHTML = `<button class="primary" onclick="next()">Yum</button>`;
   }
 
   else if(step === 10){
-    typeText("One last thing… your sukha puri 😌");
-    img.src = "final.PNG";   // ✅ STILL FINAL (no empty now)
-    btns.innerHTML = `<button onclick="next()">Take it</button>`;
+    typeText("One last… for you 😌");
+    img.src = "final.PNG";
+    btns.innerHTML = `<button class="primary" onclick="next()">Take it</button>`;
   }
 
   else if(step === 11){
     typeText("Total bill… 1 kiss per golgappa 😏💋");
-    btns.innerHTML = `<button onclick="alert('Payment received 😌❤️')">Pay</button>`;
+    btns.innerHTML = `<button class="primary" onclick="alert('Payment received 😌❤️')">Pay</button>`;
   }
 }
 
