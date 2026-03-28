@@ -45,7 +45,6 @@ button:hover {
   min-height: 60px;
 }
 
-/* typing effect */
 .typing::after {
   content: "|";
   animation: blink 1s infinite;
@@ -63,7 +62,7 @@ button:hover {
 
 <div class="message typing" id="msg"></div>
 
-<img id="image" src="plate.png">
+<img id="image" src="plate.PNG">
 
 <div id="buttons"></div>
 
@@ -93,21 +92,21 @@ function next(choice="") {
   btns.innerHTML = "";
   step++;
 
-  // 1
+  // 1 - intro + plate
   if(step === 1){
     typeText("Madam you wanted to eat golgappa… so here I have got you 😌");
-    img.src = "plate.png";
+    img.src = "plate.PNG";
     btns.innerHTML = `<button onclick="next()">Take plate</button>`;
   }
 
-  // 2
+  // 2 - full golgappa
   else if(step === 2){
     typeText("First… presenting your golgappa 😏");
-    img.src = "full.png";   // 🔥 FULL GOLGAPPA HERE
+    img.src = "full.PNG";
     btns.innerHTML = `<button onclick="next()">Hmm okay</button>`;
   }
 
-  // 3
+  // 3 - crack ask
   else if(step === 3){
     typeText("Should I crack it for you… or you’ll do it yourself? 😌");
     btns.innerHTML = `
@@ -116,21 +115,21 @@ function next(choice="") {
     `;
   }
 
-  // 4
+  // 4 - cracked shell
   else if(step === 4){
     typeText("Okay… gently cracking it for you 😏");
-    img.src = "empty.png";
+    img.src = "empty.PNG";
     btns.innerHTML = `<button onclick="next()">Next</button>`;
   }
 
-  // 5
+  // 5 - stuffing
   else if(step === 5){
     typeText("Adding stuffing… don’t get impatient 😋");
-    img.src = "stuffing.png";
+    img.src = "stuffing.PNG";
     btns.innerHTML = `<button onclick="next()">Next</button>`;
   }
 
-  // 6
+  // 6 - choice
   else if(step === 6){
     typeText("Now tell me… what should I add? 😏");
     btns.innerHTML = `
@@ -140,39 +139,39 @@ function next(choice="") {
     `;
   }
 
-  // 7
+  // 7 - based on choice
   else if(step === 7){
-    if(choice === "khatta") img.src = "khatta.png";
-    else if(choice === "meetha") img.src = "meetha.png";
-    else img.src = "dahi.png";
+    if(choice === "khatta") img.src = "khatta.PNG";
+    else if(choice === "meetha") img.src = "meetha.PNG";
+    else img.src = "dahi.PNG";
 
-    typeText("Perfect… exactly how you like it 😌");
+    typeText("Perfect… made exactly how you like it 😌");
     btns.innerHTML = `<button onclick="next()">Next</button>`;
   }
 
-  // 8
+  // 8 - open mouth
   else if(step === 8){
     typeText("Now… open your mouth 😏");
     btns.innerHTML = `<button onclick="next()">🙂</button>`;
   }
 
-  // 9
+  // 9 - feed
   else if(step === 9){
     typeText("Careful… it might burst in your mouth 💛");
-    img.src = "final.png";
+    img.src = "final.PNG";
     btns.innerHTML = `<button onclick="next()">Yum</button>`;
   }
 
-  // 10
+  // 10 - sukha puri
   else if(step === 10){
     typeText("Wait… last one — sukha puri 😌");
-    img.src = "empty.png";
+    img.src = "empty.PNG";
     btns.innerHTML = `<button onclick="next()">Take it</button>`;
   }
 
-  // 11
+  // 11 - payment
   else if(step === 11){
-    typeText("Bill ready… 1 kiss per golgappa 😏💋");
+    typeText("Total bill… 1 kiss per golgappa 😏💋");
     btns.innerHTML = `<button onclick="alert('Payment received 😌❤️')">Pay</button>`;
   }
 }
