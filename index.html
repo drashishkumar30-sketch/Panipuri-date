@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hey Yukti 💋</title>
+<title>Hey Yukti 🤭💋</title>
 
 <style>
 * { box-sizing: border-box; }
@@ -48,8 +48,22 @@ img {
   width: 260px;
   max-width: 90%;
   border-radius: 20px;
-  transition: 0.4s ease;
   box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+  opacity: 0;
+  transform: translateY(60px);
+  transition: all 0.5s ease;
+}
+
+/* SHOW IMAGE */
+.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* fade replace */
+.fade {
+  opacity: 0;
+  transform: scale(0.95);
 }
 
 .buttons {
@@ -64,26 +78,15 @@ button {
   border: none;
   font-size: 18px;
   cursor: pointer;
-  transition: 0.3s;
 }
 
 .primary {
   background: linear-gradient(135deg, #ff3d77, #ff6a88);
   color: white;
-  box-shadow: 0 8px 20px rgba(255, 60, 120, 0.4);
-}
-
-.primary:hover {
-  transform: scale(1.05);
 }
 
 .secondary {
   background: #eee;
-}
-
-.fade {
-  opacity: 0;
-  transform: scale(0.95);
 }
 
 .typing::after {
@@ -99,11 +102,11 @@ button {
 
 <body>
 
-<div class="header">Hey Yukti 💋</div>
+<div class="header">Hey Yukti 💋🤭</div>
 
 <div class="content">
   <div class="message typing" id="msg"></div>
-  <img id="image" src="plate.PNG">
+  <img id="image" src="">
 </div>
 
 <div class="buttons" id="buttons"></div>
@@ -127,19 +130,19 @@ function typeText(text){
   typing();
 }
 
-function delayedImage(src, delay=400){
+function showImage(src){
   const img = document.getElementById("image");
-  img.classList.add("fade");
+  img.classList.remove("show");
 
   setTimeout(()=>{
     img.src = src;
-    img.classList.remove("fade");
-  }, delay);
+    img.classList.add("show");
+  }, 200);
 }
 
 function vibrate(){
   if(navigator.vibrate){
-    navigator.vibrate([100, 50, 100]); // vibration pattern
+    navigator.vibrate([100, 50, 100]);
   }
 }
 
@@ -163,15 +166,24 @@ function next(choice=""){
     btns.innerHTML = `<button class="primary" onclick="next()">Then?</button>`;
   }
 
+  // 🎬 PLATE ENTRY (SLIDE IN)
   else if(step === 4){
     typeText("I came to serve you myself.\n\nHere… your plate 😌");
-    delayedImage("plate.PNG", 500);
+
+    setTimeout(()=>{
+      showImage("plate.PNG");  // slides in
+    }, 600);
+
     btns.innerHTML = `<button class="primary" onclick="next()">Take it</button>`;
   }
 
   else if(step === 5){
     typeText("Look at this… perfect 😏");
-    delayedImage("full.PNG", 500);
+
+    setTimeout(()=>{
+      showImage("full.PNG");
+    }, 500);
+
     btns.innerHTML = `<button class="primary" onclick="next()">Hmm okay</button>`;
   }
 
@@ -185,13 +197,21 @@ function next(choice=""){
 
   else if(step === 7){
     typeText("Careful… just enough 😏");
-    delayedImage("empty.PNG", 500);
+
+    setTimeout(()=>{
+      showImage("empty.PNG");
+    }, 500);
+
     btns.innerHTML = `<button class="primary" onclick="next()">Next</button>`;
   }
 
   else if(step === 8){
     typeText("Now stuffing it… slowly 😋");
-    delayedImage("stuffing.PNG", 500);
+
+    setTimeout(()=>{
+      showImage("stuffing.PNG");
+    }, 500);
+
     btns.innerHTML = `<button class="primary" onclick="next()">Next</button>`;
   }
 
@@ -207,9 +227,11 @@ function next(choice=""){
   else if(step === 10){
     typeText("Hmm… I knew it 😌");
 
-    if(choice === "khatta") delayedImage("khatta.PNG", 500);
-    else if(choice === "meetha") delayedImage("meetha.PNG", 500);
-    else delayedImage("dahi.PNG", 500);
+    setTimeout(()=>{
+      if(choice === "khatta") showImage("khatta.PNG");
+      else if(choice === "meetha") showImage("meetha.PNG");
+      else showImage("dahi.PNG");
+    }, 500);
 
     btns.innerHTML = `<button class="primary" onclick="next()">Next</button>`;
   }
@@ -226,13 +248,17 @@ function next(choice=""){
 
   else if(step === 13){
     typeText("Open your mouth 😏");
-    vibrate();  // 📳 vibration here
+    vibrate(); // 📳 vibration
     btns.innerHTML = `<button class="primary" onclick="next()">🙂</button>`;
   }
 
   else if(step === 14){
     typeText("Careful… this one is dangerous 💛");
-    delayedImage("final.PNG", 500);
+
+    setTimeout(()=>{
+      showImage("final.PNG");
+    }, 500);
+
     btns.innerHTML = `<button class="primary" onclick="next()">Yum</button>`;
   }
 
@@ -243,7 +269,11 @@ function next(choice=""){
 
   else if(step === 16){
     typeText("One last… just for you 😌");
-    delayedImage("final.PNG", 500);
+
+    setTimeout(()=>{
+      showImage("final.PNG");
+    }, 500);
+
     btns.innerHTML = `<button class="primary" onclick="next()">Take it</button>`;
   }
 
