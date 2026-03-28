@@ -19,7 +19,6 @@ body {
   color: #3e2723;
 }
 
-/* Top */
 .header {
   text-align: center;
   padding: 20px;
@@ -27,7 +26,6 @@ body {
   font-weight: 600;
 }
 
-/* Center */
 .content {
   flex: 1;
   display: flex;
@@ -54,7 +52,6 @@ img {
   box-shadow: 0 15px 35px rgba(0,0,0,0.2);
 }
 
-/* Bottom buttons */
 .buttons {
   padding: 20px;
   text-align: center;
@@ -84,13 +81,11 @@ button {
   background: #eee;
 }
 
-/* Fade animation */
 .fade {
   opacity: 0;
   transform: scale(0.95);
 }
 
-/* Typing cursor */
 .typing::after {
   content: "|";
   animation: blink 1s infinite;
@@ -132,14 +127,20 @@ function typeText(text){
   typing();
 }
 
-function changeImage(src){
+function delayedImage(src, delay=400){
   const img = document.getElementById("image");
   img.classList.add("fade");
 
   setTimeout(()=>{
     img.src = src;
     img.classList.remove("fade");
-  }, 250);
+  }, delay);
+}
+
+function vibrate(){
+  if(navigator.vibrate){
+    navigator.vibrate([100, 50, 100]); // vibration pattern
+  }
 }
 
 function next(choice=""){
@@ -149,7 +150,6 @@ function next(choice=""){
 
   if(step === 1){
     typeText("Yukti… 😌");
-    changeImage("plate.PNG");
     btns.innerHTML = `<button class="primary" onclick="next()">Hmm?</button>`;
   }
 
@@ -164,19 +164,19 @@ function next(choice=""){
   }
 
   else if(step === 4){
-    typeText("I came to serve you myself.");
-    changeImage("full.PNG");
-    btns.innerHTML = `<button class="primary" onclick="next()">Okay…</button>`;
+    typeText("I came to serve you myself.\n\nHere… your plate 😌");
+    delayedImage("plate.PNG", 500);
+    btns.innerHTML = `<button class="primary" onclick="next()">Take it</button>`;
   }
 
   else if(step === 5){
-    typeText("Come closer… don’t be shy 😌");
-    changeImage("plate.PNG");
-    btns.innerHTML = `<button class="primary" onclick="next()">I'm here</button>`;
+    typeText("Look at this… perfect 😏");
+    delayedImage("full.PNG", 500);
+    btns.innerHTML = `<button class="primary" onclick="next()">Hmm okay</button>`;
   }
 
   else if(step === 6){
-    typeText("Should I break it… or you trust me with it? 😏");
+    typeText("Should I break it… or you trust me? 😌");
     btns.innerHTML = `
       <button class="primary" onclick="next()">You do it</button>
       <button class="secondary" onclick="next()">I trust you</button>
@@ -185,13 +185,13 @@ function next(choice=""){
 
   else if(step === 7){
     typeText("Careful… just enough 😏");
-    changeImage("empty.PNG");
+    delayedImage("empty.PNG", 500);
     btns.innerHTML = `<button class="primary" onclick="next()">Next</button>`;
   }
 
   else if(step === 8){
     typeText("Now stuffing it… slowly 😋");
-    changeImage("stuffing.PNG");
+    delayedImage("stuffing.PNG", 500);
     btns.innerHTML = `<button class="primary" onclick="next()">Next</button>`;
   }
 
@@ -205,11 +205,12 @@ function next(choice=""){
   }
 
   else if(step === 10){
-    if(choice === "khatta") changeImage("khatta.PNG");
-    else if(choice === "meetha") changeImage("meetha.PNG");
-    else changeImage("dahi.PNG");
-
     typeText("Hmm… I knew it 😌");
+
+    if(choice === "khatta") delayedImage("khatta.PNG", 500);
+    else if(choice === "meetha") delayedImage("meetha.PNG", 500);
+    else delayedImage("dahi.PNG", 500);
+
     btns.innerHTML = `<button class="primary" onclick="next()">Next</button>`;
   }
 
@@ -225,12 +226,13 @@ function next(choice=""){
 
   else if(step === 13){
     typeText("Open your mouth 😏");
+    vibrate();  // 📳 vibration here
     btns.innerHTML = `<button class="primary" onclick="next()">🙂</button>`;
   }
 
   else if(step === 14){
     typeText("Careful… this one is dangerous 💛");
-    changeImage("final.PNG");
+    delayedImage("final.PNG", 500);
     btns.innerHTML = `<button class="primary" onclick="next()">Yum</button>`;
   }
 
@@ -241,22 +243,12 @@ function next(choice=""){
 
   else if(step === 16){
     typeText("One last… just for you 😌");
-    changeImage("final.PNG");
+    delayedImage("final.PNG", 500);
     btns.innerHTML = `<button class="primary" onclick="next()">Take it</button>`;
   }
 
   else if(step === 17){
-    typeText("You enjoyed that… I can tell 😏");
-    btns.innerHTML = `<button class="primary" onclick="next()">Maybe</button>`;
-  }
-
-  else if(step === 18){
-    typeText("Now comes the expensive part…");
-    btns.innerHTML = `<button class="primary" onclick="next()">What?</button>`;
-  }
-
-  else if(step === 19){
-    typeText("Payment 😏💋\n1 kiss per golgappa.");
+    typeText("Now… payment 😏💋\n1 kiss per golgappa.");
     btns.innerHTML = `<button class="primary" onclick="alert('Payment received ❤️')">Pay</button>`;
   }
 
