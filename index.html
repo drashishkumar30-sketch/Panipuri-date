@@ -2,71 +2,95 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Golgappa Date 💛</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Yukti 💛</title>
 
 <style>
+* { box-sizing: border-box; }
+
 body {
   margin: 0;
   height: 100vh;
   display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: linear-gradient(180deg, #ffd6e0, #f8b4c6);
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  color: #3e2723;
+}
+
+/* Top */
+.header {
+  text-align: center;
+  padding: 20px;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+/* Center */
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #fbc2eb, #fcd5ce);
-  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-}
-
-.card {
-  background: #f2f2f2;
-  width: 90%;
-  max-width: 380px;
-  border-radius: 30px;
-  padding: 30px 20px;
+  padding: 20px;
   text-align: center;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-}
-
-h1 {
-  font-size: 28px;
-  margin-bottom: 10px;
 }
 
 .message {
-  font-size: 22px;
+  font-size: 26px;
   font-weight: 600;
-  min-height: 90px;
-  margin-top: 20px;
-  line-height: 1.4;
+  line-height: 1.5;
+  min-height: 120px;
+  margin-bottom: 20px;
 }
 
 img {
-  width: 240px;
+  width: 260px;
+  max-width: 90%;
   border-radius: 20px;
-  margin: 20px 0;
+  transition: 0.4s ease;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.2);
 }
 
+/* Bottom buttons */
 .buttons {
-  margin-top: 20px;
+  padding: 20px;
+  text-align: center;
 }
 
 button {
-  padding: 14px 24px;
+  padding: 16px 26px;
   margin: 10px;
-  border-radius: 30px;
+  border-radius: 40px;
   border: none;
   font-size: 18px;
   cursor: pointer;
+  transition: 0.3s;
 }
 
 .primary {
   background: linear-gradient(135deg, #ff3d77, #ff6a88);
   color: white;
+  box-shadow: 0 8px 20px rgba(255, 60, 120, 0.4);
+}
+
+.primary:hover {
+  transform: scale(1.05);
 }
 
 .secondary {
-  background: #ddd;
-  color: #333;
+  background: #eee;
 }
 
+/* Fade animation */
+.fade {
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+/* Typing cursor */
 .typing::after {
   content: "|";
   animation: blink 1s infinite;
@@ -80,17 +104,14 @@ button {
 
 <body>
 
-<div class="card">
+<div class="header">For Yukti 💛</div>
 
-<h1>For Yukti 💛</h1>
-
-<div class="message typing" id="msg"></div>
-
-<img id="image" src="plate.PNG">
+<div class="content">
+  <div class="message typing" id="msg"></div>
+  <img id="image" src="plate.PNG">
+</div>
 
 <div class="buttons" id="buttons"></div>
-
-</div>
 
 <script>
 
@@ -105,90 +126,140 @@ function typeText(text){
     if(i < text.length){
       msg.innerText += text.charAt(i);
       i++;
-      setTimeout(typing, 25);
+      setTimeout(typing, 30);
     }
   }
   typing();
 }
 
-function next(choice="") {
+function changeImage(src){
   const img = document.getElementById("image");
-  const btns = document.getElementById("buttons");
+  img.classList.add("fade");
 
+  setTimeout(()=>{
+    img.src = src;
+    img.classList.remove("fade");
+  }, 250);
+}
+
+function next(choice=""){
+  const btns = document.getElementById("buttons");
   btns.innerHTML = "";
   step++;
 
   if(step === 1){
-    typeText("Madam… you wanted golgappa 😌");
-    img.src = "plate.PNG";
-    btns.innerHTML = `<button class="primary" onclick="next()">Take it</button>`;
+    typeText("Yukti… 😌");
+    changeImage("plate.PNG");
+    btns.innerHTML = `<button class="primary" onclick="next()">Hmm?</button>`;
   }
 
   else if(step === 2){
-    typeText("So I brought it for you… personally 😏");
-    img.src = "full.PNG";
-    btns.innerHTML = `<button class="primary" onclick="next()">Hmm okay</button>`;
+    typeText("Craving something spicy today? 😏");
+    btns.innerHTML = `<button class="primary" onclick="next()">Maybe…</button>`;
   }
 
   else if(step === 3){
-    typeText("Should I crack it… or you’ll do it? 😌");
-    btns.innerHTML = `
-      <button class="primary" onclick="next()">You do it</button>
-      <button class="secondary" onclick="next()">I’ll do it</button>
-    `;
+    typeText("Good… because I didn’t just bring golgappas…");
+    btns.innerHTML = `<button class="primary" onclick="next()">Then?</button>`;
   }
 
   else if(step === 4){
-    typeText("Okay… gently cracking it for you 😏");
-    img.src = "empty.PNG";
-    btns.innerHTML = `<button class="primary" onclick="next()">Next</button>`;
+    typeText("I came to serve you myself.");
+    changeImage("full.PNG");
+    btns.innerHTML = `<button class="primary" onclick="next()">Okay…</button>`;
   }
 
   else if(step === 5){
-    typeText("Adding stuffing… don’t rush 😋");
-    img.src = "stuffing.PNG";
-    btns.innerHTML = `<button class="primary" onclick="next()">Next</button>`;
+    typeText("Come closer… don’t be shy 😌");
+    changeImage("plate.PNG");
+    btns.innerHTML = `<button class="primary" onclick="next()">I'm here</button>`;
   }
 
   else if(step === 6){
-    typeText("Tell me… what should I add? 😏");
+    typeText("Should I break it… or you trust me with it? 😏");
     btns.innerHTML = `
-      <button class="primary" onclick="next('khatta')">Khatta 💧</button>
-      <button class="secondary" onclick="next('meetha')">Meetha 🍯</button>
-      <button class="secondary" onclick="next('dahi')">Dahi 🥛</button>
+      <button class="primary" onclick="next()">You do it</button>
+      <button class="secondary" onclick="next()">I trust you</button>
     `;
   }
 
   else if(step === 7){
-    if(choice === "khatta") img.src = "khatta.PNG";
-    else if(choice === "meetha") img.src = "meetha.PNG";
-    else img.src = "dahi.PNG";
-
-    typeText("Perfect… just how you like it 😌");
+    typeText("Careful… just enough 😏");
+    changeImage("empty.PNG");
     btns.innerHTML = `<button class="primary" onclick="next()">Next</button>`;
   }
 
   else if(step === 8){
-    typeText("Now… open your mouth 😏");
-    btns.innerHTML = `<button class="primary" onclick="next()">🙂</button>`;
+    typeText("Now stuffing it… slowly 😋");
+    changeImage("stuffing.PNG");
+    btns.innerHTML = `<button class="primary" onclick="next()">Next</button>`;
   }
 
   else if(step === 9){
-    typeText("Careful… it might burst 💛");
-    img.src = "final.PNG";
-    btns.innerHTML = `<button class="primary" onclick="next()">Yum</button>`;
+    typeText("Tell me… what do you feel like? 😏");
+    btns.innerHTML = `
+      <button class="primary" onclick="next('khatta')">Spicy 🌶️</button>
+      <button class="secondary" onclick="next('meetha')">Sweet 🍯</button>
+      <button class="secondary" onclick="next('dahi')">Soft 🥛</button>
+    `;
   }
 
   else if(step === 10){
-    typeText("One last… for you 😌");
-    img.src = "final.PNG";
-    btns.innerHTML = `<button class="primary" onclick="next()">Take it</button>`;
+    if(choice === "khatta") changeImage("khatta.PNG");
+    else if(choice === "meetha") changeImage("meetha.PNG");
+    else changeImage("dahi.PNG");
+
+    typeText("Hmm… I knew it 😌");
+    btns.innerHTML = `<button class="primary" onclick="next()">Next</button>`;
   }
 
   else if(step === 11){
-    typeText("Total bill… 1 kiss per golgappa 😏💋");
-    btns.innerHTML = `<button class="primary" onclick="alert('Payment received 😌❤️')">Pay</button>`;
+    typeText("Now… come closer…");
+    btns.innerHTML = `<button class="primary" onclick="next()">🙂</button>`;
   }
+
+  else if(step === 12){
+    typeText("A little more…");
+    btns.innerHTML = `<button class="primary" onclick="next()">🙂</button>`;
+  }
+
+  else if(step === 13){
+    typeText("Open your mouth 😏");
+    btns.innerHTML = `<button class="primary" onclick="next()">🙂</button>`;
+  }
+
+  else if(step === 14){
+    typeText("Careful… this one is dangerous 💛");
+    changeImage("final.PNG");
+    btns.innerHTML = `<button class="primary" onclick="next()">Yum</button>`;
+  }
+
+  else if(step === 15){
+    typeText("See? Perfect… messy… but cute 😌");
+    btns.innerHTML = `<button class="primary" onclick="next()">Hmm</button>`;
+  }
+
+  else if(step === 16){
+    typeText("One last… just for you 😌");
+    changeImage("final.PNG");
+    btns.innerHTML = `<button class="primary" onclick="next()">Take it</button>`;
+  }
+
+  else if(step === 17){
+    typeText("You enjoyed that… I can tell 😏");
+    btns.innerHTML = `<button class="primary" onclick="next()">Maybe</button>`;
+  }
+
+  else if(step === 18){
+    typeText("Now comes the expensive part…");
+    btns.innerHTML = `<button class="primary" onclick="next()">What?</button>`;
+  }
+
+  else if(step === 19){
+    typeText("Payment 😏💋\n1 kiss per golgappa.");
+    btns.innerHTML = `<button class="primary" onclick="alert('Payment received ❤️')">Pay</button>`;
+  }
+
 }
 
 next();
